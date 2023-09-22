@@ -1,5 +1,33 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model PocMVCApp.Models.User
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="container mt-5">
+        <div class="row">
+            <h4 class="display-6">Discover the power of Identity Framework</h4>
+            <section class="bg-success py-5 rounded-2">
+                <div class="container text-center">
+                    <p class="lead text-white">You are now logged in and can enjoy all the premium features and content.</p>
+                    <a class="btn btn-light" asp-controller="Users" asp-action="Index">Users</a>
+                    <a class="btn btn-primary text-white" asp-area="" asp-controller="Users" asp-action="Create">Create</a>
+                </div>
+            </section>
+        </div>
+    </div>
+}
+else
+{
+    <section class="bg-light py-5 mt-5">
+        <div class="container">
+            <h1 class="display-6">Welcome to Our Website</h1>
+            <p class="lead">Unlock the full potential of our platform by logging in to access exclusive features and content.</p>
+        </div>
+    </section>
+}
