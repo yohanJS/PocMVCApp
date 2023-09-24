@@ -17,14 +17,15 @@ public class EmailSender : IEmailSender
     }
 
     public AuthMessageSenderOptions Options { get; } //Set with Secret Manager.
+    public string? apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
 
     public async Task SendEmailAsync(string toEmail, string subject, string message)
     {
-        if (string.IsNullOrEmpty(Options.SendGridKey))
+        if (string.IsNullOrEmpty(apiKey))
         {
             throw new Exception("Null SendGridKey");
         }
-        await Execute(Options.SendGridKey, subject, message, toEmail);
+        await Execute(apiKey, subject, message, toEmail);
     }
 
     public async Task Execute(string apiKey, string subject, string message, string toEmail)
