@@ -12,19 +12,19 @@ public class EmailSender : IEmailSender
     public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor,
                        ILogger<EmailSender> logger)
     {
-        //Options = optionsAccessor.Value;
+        Options = optionsAccessor.Value;
         _logger = logger;
     }
 
-    //public AuthMessageSenderOptions Options { get; } //Set with Secret Manager.
-    public string apiKey = "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";
+    public AuthMessageSenderOptions Options { get; } //Set with Secret Manager.
+
     public async Task SendEmailAsync(string toEmail, string subject, string message)
     {
-        if (string.IsNullOrEmpty(apiKey))
+        if (string.IsNullOrEmpty(Options.SendGridKey))
         {
             throw new Exception("Null SendGridKey");
         }
-        await Execute(apiKey, subject, message, toEmail);
+        await Execute(Options.SendGridKey, subject, message, toEmail);
     }
 
     public async Task Execute(string apiKey, string subject, string message, string toEmail)
