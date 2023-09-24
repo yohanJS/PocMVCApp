@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PocMVCApp.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using PocMVCApp.Services;
+using SignalRChat.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -45,5 +47,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();
