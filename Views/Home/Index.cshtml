@@ -23,15 +23,15 @@
     </div>
 
     <form class="form-control bg-light border-1 position-absolute bottom-0 end-0 w-50 m-2">
-        <p class="list-group m-0 p-0" id="messagesList" style="max-height: 200px; overflow-y: auto;">
+        <p class="list-group m-0 p-0" id="messagesList" style="max-height: 200px; overflow-y: scroll;">
         </p>
         @if (User.Identity != null && User.Identity.Name != null)
         {
-            <input type="text" class="border-0 bg-transparent p-0 m-1" id="userInput" value="@User.Identity.Name" />
+            <input type="text" class="border-0 bg-transparent p-0 m-1" style="display:none" id="userInput" value="@User.Identity.Name" />
         }
         else
         {
-            <input type="text" class="border-0 bg-transparent p-0 m-1" id="userInput" value="UserName" />
+            <input type="text" class="border-0 bg-transparent p-0 m-1" style="display:none" id="userInput" value="UserName" />
         }
         <input type="text" class="form-control" id="messageInput" placeholder="message" />
         <div class="col-12 text-end">
