@@ -5,9 +5,13 @@
 }
 
 
-<div class="row d-flex justify-content-center">
-    <div class="col-md-6">
-        <form class="form-control bg-light shadow-lg mt-5 p-4" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+<div class="row d-flex justify-content-center border p-3 mt-5 shadow-lg bg-light rounded-2">
+    <div class="col-sm-6 align-self-center text-center p-5">
+        <h2 class="display-6 fw-bold">Simplify Registration</h2>
+        <p class="lead">Life is better when it's simple.</p>
+    </div>
+    <div class="col-sm-6 align-self-center p-1">
+        <form class="form-control p-2 border-0" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h2 class="text-center">Create account</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
