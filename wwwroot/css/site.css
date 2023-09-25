@@ -16,36 +16,3 @@ html {
 body {
   margin-bottom: 60px;
 }
-/* Style the chat bubble */
-.chat-bubble {
-    background-color: #e1f7d5;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 5px 0;
-    display: inline-block;
-    max-width: 80%;
-}
-
-/* Style the sender's chat bubble */
-.user-chat-bubble {
-    background-color: #a0c4ff;
-    align-self: flex-end;
-}
-
-/* Style the input and send button */
-#userInput, #messageInput, #sendButton {
-    margin: 5px 0;
-}
-
-/* Style the chat container */
-.chat-container {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-}
-#messagesList {
-    max-height: 300px; /* Set a maximum height for the container */
-    overflow-y: auto; /* Enable vertical scrolling when content overflows */
-}
