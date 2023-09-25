@@ -21,27 +21,26 @@
             </section>
         </div>
     </div>
-    <section class="mt-5">
-        <form class="form-control border-2 bg-light shadow-sm p-5">
-            <div class="row d-flex justify-content-center ">
-                <div class="col-12">
-                    @*<input type="text" class="btn fw-bold" id="userInput" placeholder="@User.Identity.Name" value="@User.Identity.Name" />
-                *@
-                    @if (User.Identity != null && User.Identity.Name != null)
-                    {
-                        <input type="text" class="border-0 bg-transparent p-0" id="userInput" placeholder="@User.Identity.Name.Replace("@", "#");" value="@User.Identity.Name" />
-                    }
-                    <input type="text" class="form-control" id="messageInput" placeholder="message" />
-                    <button type="button" class="btn btn-success mt-1" id="sendButton">Send Message</button>
-                </div>
-            </div>
-        </form>
-        <div class="row d-flex justify-content-center">
-            <div class="col-6 bg-light shadow-sm p-5">
-                <ul class="list-group" id="messagesList"></ul>
-            </div>
+    <div class="row position-absolute bottom-0 end-0 bg-light shadow-lg border rounded-2 p-5 m-2 w-50">
+        <div class="col-12 bg-light shadow-sm p-0">
+            <p class="list-group m-0 p-0" id="messagesList" style="max-height: 300px; overflow-y: auto;">
+            </p>
         </div>
-    </section>
+        <div class="col-12 p-0">
+
+            @if (User.Identity != null && User.Identity.Name != null)
+            {
+                <input type="text" class="border-0 bg-transparent p-0" id="userInput" placeholder="@User.Identity.Name" value="@User.Identity.Name" />
+            }
+            else
+            {
+                <input type="text" class="border-0 bg-transparent p-0" id="userInput" placeholder="UserName" value="UserName" />
+            }
+            <input type="text" class="form-control" id="messageInput" placeholder="message" />
+            <button type="button" class="btn btn-success mt-1" id="sendButton">Send Message</button>
+        </div>
+    </div>
+    
 }
 else
 {
