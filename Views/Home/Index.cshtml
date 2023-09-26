@@ -11,13 +11,13 @@
 {
     <div class="container mt-5">
         <div class="row">
-            <h4 class="display-6">Discover the power of Identity Framework</h4>
+            <h4 class="display-5">Discover the power of Identity Framework</h4>
             <section class="bg-secondary bg-opacity-50 shadow-lg py-5 rounded-2">
                 <div class="container text-center">
                     <p class="lead text-white">You are now logged in and can enjoy all the premium features and content.</p>
-                    <a class="btn btn-light" asp-controller="Users" asp-action="Index">Users</a>
-                    <a class="btn btn-primary text-white" asp-area="" asp-controller="Users" asp-action="Create">Create</a>
                     <p class="lead text-white">Try our newest chat integration down in the right corner</p>
+                    <a class="btn btn-light" asp-controller="Users" asp-action="Index">Discover Users</a>
+                    <a class="btn btn-primary text-white" asp-area="" asp-controller="Users" asp-action="Create">Join Us</a>
                 </div>
             </section>
         </div>
@@ -28,16 +28,19 @@
         Chat
     </button>
     <!--Chat  Modal -->
-    <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal fade position-absolute bottom-0 end-0" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="chatModalLabel">Chat</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="list-group m-0 p-0" id="messagesList" style="max-height: 200px; overflow-y: scroll;">
+
+                    <p class="list-group m-0 p-0" id="messagesList" style="max-height: 500px; overflow-y: scroll;">
                     </p>
+                </div>
+                <div class="modal-footer">
                     @if (User.Identity != null && User.Identity.Name != null)
                     {
                         <input type="text" class="border-0 bg-transparent p-0 m-1" style="display:none" id="userInput" value="@User.Identity.Name" />
@@ -47,10 +50,8 @@
                         <input type="text" class="border-0 bg-transparent p-0 m-1" style="display:none" id="userInput" value="UserName" />
                     }
                     <input type="text" class="form-control" id="messageInput" placeholder="message" />
-                    <div class="col-12 text-end">
-                        <button type="button" class="btn btn-success mt-1 w-100" id="sendButton">Send</button>
-                    </div>
-                </div>             
+                    <button type="button" class="btn btn-success mt-1 w-100" id="sendButton">Send</button>
+                </div>
             </div>
         </div>
     </div>
@@ -64,7 +65,4 @@ else
         </div>
     </section>
 }
-
-
-
 
