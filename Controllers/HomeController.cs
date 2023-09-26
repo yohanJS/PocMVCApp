@@ -23,6 +23,10 @@ namespace PocMVCApp.Controllers
             return View();
         }
 
+        public IActionResult UserCardsPartial() {
+            return PartialView("_UsersCard");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
