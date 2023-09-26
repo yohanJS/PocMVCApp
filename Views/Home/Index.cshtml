@@ -15,6 +15,9 @@
             <section class="bg-secondary bg-opacity-50 shadow-lg py-5 rounded-2">
                 <div class="container text-center">
                     <p class="lead text-white">You are now logged in and can enjoy all the premium features and content.</p>
+                    <a class="btn btn-light" asp-controller="Users" asp-action="Index">Users</a>
+                    <a class="btn btn-primary text-white" asp-area="" asp-controller="Users" asp-action="Create">Create</a>
+                    @*<p class="lead text-white">Try our newest chat integration down in the right corner</p>*@
                     <p class="lead text-white">Try our newest chat integration down in the right corner</p>
                     <a class="btn btn-light" asp-controller="Users" asp-action="Index">Discover Users</a>
                     <a class="btn btn-primary text-white" asp-area="" asp-controller="Users" asp-action="Create">Join Us</a>
@@ -23,7 +26,7 @@
         </div>
     </div>
 
-    <!-- Button trigger modal -->
+    @*<!-- Button trigger modal -->
     <button type="button" class="btn btn-success position-absolute bottom-0 end-0 m-3" data-bs-toggle="modal" data-bs-target="#chatModal">
         Chat
     </button>
@@ -54,7 +57,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 }
 else
 {
@@ -65,4 +68,15 @@ else
         </div>
     </section>
 }
+@*This renders a partial view named _UsersCard*@
+<div>
+    <partial name="_UsersCard" />
+</div>
+<div class="row d-flex justify-content-center mt-5">
+    <div class="col-6">
+        <p class="lead">"For a richer experience and the opportunity to connect...</p>
+        <a class="nav-link btn btn-primary fw-bold text-light" asp-area="Identity" asp-page="/Account/Register">Register now</a>
+    </div>
+</div>
+
 
