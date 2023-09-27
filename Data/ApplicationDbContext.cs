@@ -10,6 +10,5 @@ namespace PocMVCApp.Data
             : base(options)
         {
         }
-        public DbSet<PocMVCApp.Models.User>? User { get; set; }
     }
 }
