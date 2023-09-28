@@ -12,8 +12,8 @@ using PocMVCApp.Data;
 namespace PocMVCApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230922131545_UserTableAdded")]
-    partial class UserTableAdded
+    [Migration("20230928203707_addingCustomTables")]
+    partial class addingCustomTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -226,7 +226,7 @@ namespace PocMVCApp.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PocMVCApp.Models.User", b =>
+            modelBuilder.Entity("PocMVCApp.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -234,18 +234,127 @@ namespace PocMVCApp.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Age")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("JobTitle")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("ThumbnailImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("PocMVCApp.Entities.CategoryItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateTimeItemReleased")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MediaTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("MediaTypeId");
+
+                    b.ToTable("CategoryItem");
+                });
+
+            modelBuilder.Entity("PocMVCApp.Entities.Content", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("CategoryItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HTMLContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("VideoLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.HasIndex("CategoryItemId");
+
+                    b.ToTable("Content");
+                });
+
+            modelBuilder.Entity("PocMVCApp.Entities.MediaType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ThumbnailImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MediaType");
+                });
+
+            modelBuilder.Entity("PocMVCApp.Entities.UserCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserCategory");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -297,6 +406,49 @@ namespace PocMVCApp.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PocMVCApp.Entities.Category", b =>
+                {
+                    b.HasOne("PocMVCApp.Entities.Category", null)
+                        .WithMany("UserCategory")
+                        .HasForeignKey("CategoryId");
+                });
+
+            modelBuilder.Entity("PocMVCApp.Entities.CategoryItem", b =>
+                {
+                    b.HasOne("PocMVCApp.Entities.Category", null)
+                        .WithMany("CategoryItems")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PocMVCApp.Entities.MediaType", null)
+                        .WithMany("CategoryItems")
+                        .HasForeignKey("MediaTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PocMVCApp.Entities.Content", b =>
+                {
+                    b.HasOne("PocMVCApp.Entities.CategoryItem", "CategoryItem")
+                        .WithMany()
+                        .HasForeignKey("CategoryItemId");
+
+                    b.Navigation("CategoryItem");
+                });
+
+            modelBuilder.Entity("PocMVCApp.Entities.Category", b =>
+                {
+                    b.Navigation("CategoryItems");
+
+                    b.Navigation("UserCategory");
+                });
+
+            modelBuilder.Entity("PocMVCApp.Entities.MediaType", b =>
+                {
+                    b.Navigation("CategoryItems");
                 });
 #pragma warning restore 612, 618
         }
