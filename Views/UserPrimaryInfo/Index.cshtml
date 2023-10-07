@@ -4,61 +4,46 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.JobTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Age)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ZipCode)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ZipCode)
-                </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@if (!Model.Any())
+{
+    <div class="row mt-4 justify-content-center">
+            <div class="col-12 align-self-center p-0">
+                <div class="card mx-auto">
+                    <div class="card-body p-5">
+                        <h5 class="card-title">Ready to get started?</h5>
+                        <p class="card-text">Enter your information to create a new profile.</p>
+                        <a asp-action="Create" class="btn btn-lg btn-primary w-100">Create</a>
+                    </div>
+                </div>
+            </div>       
+    </div>
 }
-    </tbody>
-</table>
+else
+{
+    <div class="container mt-5">
+        <div class="row mt-4 justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 align-self-center p-0">
+                    <div class="card mx-auto">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/21/14/53/man-1845814_1280.jpg" class="card-img-top" alt="..."> <!-- Replace with actual image source -->
+                        <div class="card-body p-5">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.JobTitle)</h5>
+                            <p class="card-text">
+                                <strong class="text-primary">Age:</strong> <span class="text-secondary">@Html.DisplayFor(modelItem => item.Age)</span><br>
+                                <strong class="text-primary">Name:</strong> <span class="text-secondary">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</span><br>
+                                <strong class="text-primary">Address:</strong> <span class="text-secondary">@Html.DisplayFor(modelItem => item.Address)</span><br>
+                                <strong class="text-primary">Zip Code:</strong> <span class="text-secondary">@Html.DisplayFor(modelItem => item.ZipCode)</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 align-self-center p-0">
+                    <a class="btn btn-lg btn-info w-100 mt-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-lg btn-danger w-100 mt-1" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </div>
+            }
+        </div>
+    </div>
+}
+
