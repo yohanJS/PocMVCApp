@@ -77,7 +77,7 @@ namespace MvcAppPOC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,JobTitle,Age")] UserPrimaryInfo userPrimaryInfo)
+        public async Task<IActionResult> Create([Bind("Id,UserId,JobTitle,Age, FirstName, LastName, PhoneNumber, Address, ZipCode")] UserPrimaryInfo userPrimaryInfo)
         {
             if (ModelState.IsValid)
     {
