@@ -77,7 +77,7 @@ namespace MvcAppPOC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,JobTitle,Age, FirstName, LastName, PhoneNumber, Address, ZipCode")] UserPrimaryInfo userPrimaryInfo)
+        public async Task<IActionResult> Create([Bind("Id,UserId,JobTitle,Age, FirstName, LastName, Address, ZipCode")] UserPrimaryInfo userPrimaryInfo)
         {
             if (ModelState.IsValid)
     {
@@ -124,7 +124,7 @@ namespace MvcAppPOC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,JobTitle,Age")] UserPrimaryInfo userPrimaryInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,JobTitle,Age, FirstName, LastName, Address, ZipCode")] UserPrimaryInfo userPrimaryInfo)
         {
             if (id != userPrimaryInfo.Id)
             {
@@ -148,6 +148,10 @@ namespace MvcAppPOC.Controllers
                             // Update the fields that you want to allow editing
                             userPrimaryInfoToUpdate.JobTitle = userPrimaryInfo.JobTitle;
                             userPrimaryInfoToUpdate.Age = userPrimaryInfo.Age;
+                            userPrimaryInfoToUpdate.FirstName = userPrimaryInfo.FirstName;
+                            userPrimaryInfoToUpdate.LastName = userPrimaryInfo.LastName;
+                            userPrimaryInfoToUpdate.Address = userPrimaryInfo.Address;
+                            userPrimaryInfoToUpdate.ZipCode = userPrimaryInfo.ZipCode;
 
                             _context.Update(userPrimaryInfoToUpdate);
                             await _context.SaveChangesAsync();
