@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MvcAppPOC.Data;
 using MvcAppPOC.Entities;
+using MvcAppPOC.Services.Interfaces;
 
 namespace MvcAppPOC.Controllers
 {
@@ -17,11 +18,13 @@ namespace MvcAppPOC.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager; // Inject UserManager
+        private readonly IImageService _imageService;
 
-        public UserPrimaryInfoController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public UserPrimaryInfoController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IImageService imageService)
         {
             _context = context;
             _userManager = userManager; // Initialize UserManager
+            _imageService = imageService;
         }
 
         // GET: UserPrimaryInfo
@@ -77,28 +80,34 @@ namespace MvcAppPOC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,JobTitle,Age, FirstName, LastName, Address, ZipCode")] UserPrimaryInfo userPrimaryInfo)
+        public async Task<IActionResult> Create([Bind("Id,UserId,ImageData,ImageType,ImageFile,JobTitle,Age,FirstName,LastName,Address,ZipCode")] UserPrimaryInfo userPrimaryInfo)
         {
             if (ModelState.IsValid)
-    {
-        // Get the current user
-        var currentUser = await _userManager.GetUserAsync(User);
+            {
+                // Get the current user
+                var currentUser = await _userManager.GetUserAsync(User);
 
-        if (currentUser != null)
-        {
-            // Set the UserId property to the current user's ID
-            userPrimaryInfo.UserId = currentUser.Id;
+                if (currentUser != null)
+                {
+                    // Set the UserId property to the current user's ID
+                    userPrimaryInfo.UserId = currentUser.Id;
 
-            _context.Add(userPrimaryInfo);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        else
-        {
-            // Handle the case where the current user is not found
-            return NotFound("Current user not found.");
-        }
-    }
+                    if (userPrimaryInfo.ImageFile != null)
+                    {
+                        userPrimaryInfo.ImageData = await _imageService.ConvertFileToByteArrayAsync(userPrimaryInfo.ImageFile);
+                        userPrimaryInfo.ImageType = userPrimaryInfo.ImageFile.ContentType;
+                    }
+
+                    _context.Add(userPrimaryInfo);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    // Handle the case where the current user is not found
+                    return NotFound("Current user not found.");
+                }
+            }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", userPrimaryInfo.UserId);
             return View(userPrimaryInfo);
         }
@@ -124,7 +133,7 @@ namespace MvcAppPOC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,JobTitle,Age, FirstName, LastName, Address, ZipCode")] UserPrimaryInfo userPrimaryInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,ImageData,ImageType,ImageFile,JobTitle,Age,FirstName,LastName,Address,ZipCode")] UserPrimaryInfo userPrimaryInfo)
         {
             if (id != userPrimaryInfo.Id)
             {
@@ -147,6 +156,11 @@ namespace MvcAppPOC.Controllers
                         {
                             // Update the fields that you want to allow editing
                             userPrimaryInfoToUpdate.JobTitle = userPrimaryInfo.JobTitle;
+                            if (userPrimaryInfo.ImageFile != null)
+                            {
+                                userPrimaryInfo.ImageData = await _imageService.ConvertFileToByteArrayAsync(userPrimaryInfo.ImageFile);
+                                userPrimaryInfo.ImageType = userPrimaryInfo.ImageFile.ContentType;
+                            }
                             userPrimaryInfoToUpdate.Age = userPrimaryInfo.Age;
                             userPrimaryInfoToUpdate.FirstName = userPrimaryInfo.FirstName;
                             userPrimaryInfoToUpdate.LastName = userPrimaryInfo.LastName;

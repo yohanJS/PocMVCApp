@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<MvcAppPOC.Entities.UserPrimaryInfo>
+@inject MvcAppPOC.Services.Interfaces.IImageService _imageService
 
 @{
     ViewData["Title"] = "Index";
@@ -26,7 +27,14 @@ else
             {
                 <div class="col-12 align-self-center p-0">
                     <div class="card mx-auto">
-                        <img src="https://cdn.pixabay.com/photo/2016/11/21/14/53/man-1845814_1280.jpg" class="card-img-top" alt="..."> <!-- Replace with actual image source -->
+                        @if (item.ImageData != null && item.ImageType != null)
+                        {
+                            <img class="card-img-top" src="@_imageService.ConvertByteArrayToFile(item.ImageData, item.ImageType)" />
+                        }
+                        else
+                        {
+                            <p>Missing Profile Image</p>
+                        }
                         <div class="card-body p-5">
                             <h5 class="card-title">@Html.DisplayFor(modelItem => item.JobTitle)</h5>
                             <p class="card-text">
