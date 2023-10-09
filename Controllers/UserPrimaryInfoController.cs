@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MvcAppPOC.Data;
-using MvcAppPOC.Entities;
-using MvcAppPOC.Services.Interfaces;
+using PocMVCApp.Data;
+using PocMVCApp.Entities;
+using PocMVCApp.Services.Interfaces;
 
 namespace MvcAppPOC.Controllers
 {
@@ -17,7 +17,7 @@ namespace MvcAppPOC.Controllers
     public class UserPrimaryInfoController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager; // Inject UserManager
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IImageService _imageService;
 
         public UserPrimaryInfoController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IImageService imageService)
@@ -82,6 +82,7 @@ namespace MvcAppPOC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserId,ImageData,ImageType,ImageFile,JobTitle,Age,FirstName,LastName,Address,ZipCode")] UserPrimaryInfo userPrimaryInfo)
         {
+            UserPrimaryInfo model = new UserPrimaryInfo();
             if (ModelState.IsValid)
             {
                 // Get the current user

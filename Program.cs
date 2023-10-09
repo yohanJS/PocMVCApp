@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using SignalRChat.Hubs;
-using MvcAppPOC.Data;
-using MvcAppPOC.Services.Interfaces;
+using PocMVCApp.Data;
+using PocMVCApp.Services.Interfaces;
 using PocMVCApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MvcAppPOC.Entities;
+using PocMVCApp.Entities;
 using PocMVCApp.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MvcAppPOC.Data
+namespace PocMVCApp.Data
 {
     public class ApplicationUser : IdentityUser
     {
@@ -18,6 +18,6 @@ namespace MvcAppPOC.Data
             : base(options)
         {
         }
-        public DbSet<MvcAppPOC.Entities.UserPrimaryInfo>? UserPrimaryInfo { get; set; }
+        public DbSet<UserPrimaryInfo>? UserPrimaryInfo { get; set; }
     }
 }

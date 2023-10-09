@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MvcAppPOC.Data;
+using PocMVCApp.Data;
 
 namespace PocMVCApp.Areas.Identity.Pages.Account.Manage
 {
