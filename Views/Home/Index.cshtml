@@ -14,12 +14,12 @@
     <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-12 bg-secondary bg-opacity-50 shadow-lg py-5 rounded-2">
-                <p class="lead">"Now that you've signed up, it's your chance to begin connecting with others."</p>
+                <p class="lead fw-bold">"Now that you've signed up, it's your chance to begin connecting with others."</p>
                 @if (ViewBag.IsTwoFactorEnabled == false)
                 {
                     <div class="col-md-6 p-2 bg-warning shadow-sm rounded-2">
                         <p class="text-dark">Do not wait, secure your account now.</p>
-                        <a class="link-primary text-decoration-none" href="Identity/Account/Manage/TwoFactorAuthentication">Enable Two-factor authentication</a>
+                        <a class="link-primary text-decoration-none" href="Identity/Account/Manage/EnableAuthenticator">Enable Two-factor authentication</a>
                     </div>
                 }
                  @*<p class="lead text-white">Try our newest chat integration down in the right corner</p>*@
