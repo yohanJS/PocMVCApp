@@ -148,33 +148,38 @@ namespace MvcAppPOC.Controllers
 
                     if (currentUser != null)
                     {
-                        // Ensure that the user is editing their own record
-                        var userPrimaryInfoToUpdate = await _context.UserPrimaryInfo
-                            .FirstOrDefaultAsync(u => u.UserId == currentUser.Id && u.Id == id);
-
-                        if (userPrimaryInfoToUpdate != null)
+                        if (_context.UserPrimaryInfo != null)
                         {
-                            // Update the fields that you want to allow editing
-                            userPrimaryInfoToUpdate.JobTitle = userPrimaryInfo.JobTitle;
-                            if (userPrimaryInfo.ImageFile != null)
+                            // Ensure that the user is editing their own record
+                            var userPrimaryInfoToUpdate = await _context.UserPrimaryInfo
+                                .FirstOrDefaultAsync(u => u.UserId == currentUser.Id && u.Id == id);
+
+                            if (userPrimaryInfoToUpdate != null)
                             {
-                                userPrimaryInfo.ImageData = await _imageService.ConvertFileToByteArrayAsync(userPrimaryInfo.ImageFile);
-                                userPrimaryInfo.ImageType = userPrimaryInfo.ImageFile.ContentType;
-                            }
-                            userPrimaryInfoToUpdate.Age = userPrimaryInfo.Age;
-                            userPrimaryInfoToUpdate.FirstName = userPrimaryInfo.FirstName;
-                            userPrimaryInfoToUpdate.LastName = userPrimaryInfo.LastName;
-                            userPrimaryInfoToUpdate.Address = userPrimaryInfo.Address;
-                            userPrimaryInfoToUpdate.ZipCode = userPrimaryInfo.ZipCode;
+                                // Update the fields that you want to allow editing
+                                userPrimaryInfoToUpdate.JobTitle = userPrimaryInfo.JobTitle;
+                                if (userPrimaryInfo.ImageFile != null)
+                                {
+                                    userPrimaryInfoToUpdate.ImageFile = userPrimaryInfo.ImageFile;
+                                    userPrimaryInfoToUpdate.ImageData = await _imageService.ConvertFileToByteArrayAsync(userPrimaryInfo.ImageFile);
+                                    userPrimaryInfoToUpdate.ImageType = userPrimaryInfo.ImageFile.ContentType;
+                                }
+                                userPrimaryInfoToUpdate.Age = userPrimaryInfo.Age;
+                                userPrimaryInfoToUpdate.FirstName = userPrimaryInfo.FirstName;
+                                userPrimaryInfoToUpdate.LastName = userPrimaryInfo.LastName;
+                                userPrimaryInfoToUpdate.Address = userPrimaryInfo.Address;
+                                userPrimaryInfoToUpdate.ZipCode = userPrimaryInfo.ZipCode;
 
-                            _context.Update(userPrimaryInfoToUpdate);
-                            await _context.SaveChangesAsync();
-                            return RedirectToAction(nameof(Index));
+                                _context.Update(userPrimaryInfoToUpdate);
+                                await _context.SaveChangesAsync();
+                                return RedirectToAction(nameof(Index));
+                            }
+                            else
+                            {
+                                return NotFound("User primary info not found.");
+                            }
                         }
-                        else
-                        {
-                            return NotFound("User primary info not found.");
-                        }
+                        
                     }
                     else
                     {

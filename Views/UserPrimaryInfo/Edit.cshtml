@@ -11,7 +11,7 @@
             <h1>Edit Profile</h1>
         </div>
         <div class="col-md-6 align-self-center bg-light shadow-lg p-3">
-            <form asp-action="Edit">
+            <form asp-action="Edit" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group">
