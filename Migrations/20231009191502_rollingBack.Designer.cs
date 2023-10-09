@@ -12,8 +12,8 @@ using PocMVCApp.Data;
 namespace PocMVCApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231008021355_CustomControllerForProfileImage2")]
-    partial class CustomControllerForProfileImage2
+    [Migration("20231009191502_rollingBack")]
+    partial class rollingBack
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -240,14 +240,14 @@ namespace PocMVCApp.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<string>("ContentType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("ImageData")
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageType")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JobTitle")
                         .HasColumnType("nvarchar(max)");

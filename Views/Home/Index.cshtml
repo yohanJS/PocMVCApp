@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using MvcAppPOC.Data;
+@using PocMVCApp.Data;
+@using PocMVCApp.Entities;
+@using PocMVCApp.Areas.Identity.Pages.Account.Manage
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
@@ -9,16 +11,20 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
         <div class="row">
-            <h4 class="display-5">Discover the power of Identity Framework</h4>
-            <section class="bg-secondary bg-opacity-50 shadow-lg py-5 rounded-2">
-                <div class="container">
-                    <p class="lead text-white fw-bold">Enjoy all the premium features and content.</p>
-                    @*<p class="lead text-white">Try our newest chat integration down in the right corner</p>*@
-                    @*<p class="lead text-white">Try our newest chat integration down in the right corner</p>*@
-                </div>
-            </section>
+            <div class="col-12 bg-secondary bg-opacity-50 shadow-lg py-5 rounded-2">
+                <p class="lead">"Now that you've signed up, it's your chance to begin connecting with others."</p>
+                @if (ViewBag.IsTwoFactorEnabled == false)
+                {
+                    <div class="col-md-6 p-2 bg-warning shadow-sm rounded-2">
+                        <p class="text-dark">Do not wait, secure your account now.</p>
+                        <a class="link-primary text-decoration-none" href="Identity/Account/Manage/TwoFactorAuthentication">Enable Two-factor authentication</a>
+                    </div>
+                }
+                 @*<p class="lead text-white">Try our newest chat integration down in the right corner</p>*@
+                @*<p class="lead text-white">Try our newest chat integration down in the right corner</p>*@
+            </div>
         </div>
     </div>
 
@@ -57,26 +63,21 @@
 }
 else
 {
-    <section class="bg-light py-5 mt-5">
-        <div class="container">
-            <h1 class="display-6">Welcome to Our Website</h1>
-            <p class="lead">Unlock the full potential of our platform by logging in to access exclusive features and content.</p>
+    <div class="row mt-5 mb-5">
+        <div class="col-12">
+            <h1 class="display-4">Welcome</h1>
+            <p class="lead">"Discover love and relationship coaching with us. <span class="fw-bold">Sign up now</span> and let's get started!".</p>
         </div>
-    </section>
+        <div class="col-12">
+            <p class="lead">"For a richer experience and the opportunity to connect...</p>
+            <a class="nav-link btn btn-primary fw-bold text-light" asp-area="Identity" asp-page="/Account/Register">Sign up now</a>
+        </div>
+    </div>
 }
 @*This renders a partial view named _UsersCard*@
 <div>
     <partial name="_UsersCard" />
 </div>
-@if (!SignInManager.IsSignedIn(User))
-{
-    <div class="row d-flex justify-content-center mt-5">
-        <div class="col-sm-6">
-            <p class="lead">"For a richer experience and the opportunity to connect...</p>
-            <a class="nav-link btn btn-primary fw-bold text-light" asp-area="Identity" asp-page="/Account/Register">Register now</a>
-        </div>
-    </div>
-}
 
 
 

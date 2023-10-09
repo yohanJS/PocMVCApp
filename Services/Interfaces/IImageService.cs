@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MvcAppPOC.Services.Interfaces
+namespace PocMVCApp.Services.Interfaces
 {
     public interface IImageService
     {

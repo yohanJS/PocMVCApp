@@ -1,9 +1,9 @@
-﻿using MvcAppPOC.Data;
+﻿using PocMVCApp.Data;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
-namespace MvcAppPOC.Entities
+namespace PocMVCApp.Entities
 {
     public class UserPrimaryInfo
     {
@@ -26,6 +26,6 @@ namespace MvcAppPOC.Entities
         public string? ZipCode { get; set; }
 
         [ForeignKey("UserId")]
-        public virtual ApplicationUser? User { get; set; }
+        public virtual ApplicationUser? User { get; set; }        
     }
 }
