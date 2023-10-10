@@ -32,7 +32,7 @@ namespace MvcAppPOC.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
 
-            if (currentUser != null)
+            if (currentUser != null && _context.UserPrimaryInfo != null)
             {
                 // Filter UserPrimaryInfo records by the current user's ID
                 var userPrimaryInfoList = await _context.UserPrimaryInfo
