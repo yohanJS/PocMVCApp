@@ -13,18 +13,23 @@
 {
     <div class="container mt-5 mb-5">
         <div class="row">
-            <div class="col-12 bg-secondary bg-opacity-50 shadow-lg py-5 rounded-2">
+            <div class="col-12 bg-secondary bg-opacity-50 shadow-lg p-2 rounded-2">
                 <p class="lead fw-bold">"Now that you've signed up, it's your chance to begin connecting with others."</p>
                 @if (ViewBag.IsTwoFactorEnabled == false)
                 {
-                    <div class="col-md-6 p-2 bg-warning shadow-lg rounded-2">
-                        <p class="text-dark">Do not wait, secure your account now.</p>
-                        <a class="text-primary text-decoration-none" href="Identity/Account/Manage/EnableAuthenticator">Enable Two-factor authentication</a>
-                    </div>
+                    <div class="col-md-6">
+                        <div class="alert alert-warning alert-dismissible fade show shadow-lg" role="alert">
+                            <p class="text-dark">Do not wait, secure your account now.</p>
+                            <a class="text-primary text-decoration-none" href="Identity/Account/Manage/EnableAuthenticator">Enable Two-factor authentication</a>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                     </div>
                 }
             </div>
         </div>
-    </div>
+    </div>   
 }
 else
 {
@@ -43,6 +48,12 @@ else
 <div>
     <partial name="_UsersCard" />
 </div>
+
+
+
+
+
+
 
 
 
