@@ -16,6 +16,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+.heart-container {
+    width: 100px;
+    height: 100px;
+}
+
+.heart-path {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawHeart 2s ease-in-out forwards;
+}
+
+@keyframes drawHeart {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
 .home-message {
     background-color: #bbbbbb;
     border-radius: 10px;
