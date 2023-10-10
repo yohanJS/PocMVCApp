@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using PocMVCApp.Data;
+@inject SignInManager<ApplicationUser> SignInManager
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success position-absolute bottom-0 end-0 m-3" data-bs-toggle="modal" data-bs-target="#chatModal">
+    Chat Hub
+</button>
+<!--Chat  Modal -->
+<div class="modal fade position-absolute bottom-0 end-0" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content p-5">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chatModalLabel">Chat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-5">
+                <p class="list-group m-0 p-0" id="messagesList" style="max-height: 200px; overflow-y: scroll;">
+                </p>
+            </div>
+            <div class="modal-footer">
+                @if (User.Identity != null && User.Identity.Name != null)
+                {
+                    <input type="text" class="border-0 bg-transparent p-0 m-1" style="display:none" id="userInput" value="@User.Identity.Name" />
+                }
+                else
+                {
+                    <input type="text" class="border-0 bg-transparent p-0 m-1" style="display:none" id="userInput" value="UserName" />
+                }
+                <input type="text" class="form-control" id="messageInput" placeholder="message" />
+                <button type="button" class="btn btn-success mt-1 w-100" id="sendButton">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
