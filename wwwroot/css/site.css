@@ -1,14 +1,4 @@
 html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-html {
   position: relative;
   min-height: 100%;
 }
@@ -16,12 +6,37 @@ html {
 body {
   margin-bottom: 60px;
 }
+/*Primary color*/
+.my-primary-color {
+    color: #3498db;
+}
+/*Secondary color*/
+.my-secondary-color {
+    color: #2ecc71;
+}
+/*Accent Color*/
+.my-accent-color {
+    color: #e74c3c;
+}
+/*Neutral color*/
+.my-neutral-color {
+    background-color: #f5f5f5;
+}
+/*Text color*/
+.my-text-color {
+    color: #333333;
+}
+.my-btn-primary {
+    color: black;
+    background-color: #3498db;
+    border-color: #0d6efd;
+}
 .heart-container {
     width: 100px;
     height: 100px;
 }
 
-.heart-path {
+.lighting-path {
     stroke-dasharray: 100;
     stroke-dashoffset: 100;
     animation: drawHeart 2s ease-in-out forwards;
@@ -98,6 +113,11 @@ body {
     }
 }
 
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
 .image-wrapper img {
     max-width: 100%;
     max-height: 100%;
