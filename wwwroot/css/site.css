@@ -157,23 +157,6 @@ body {
 .featurette-divider {
     margin: 5rem 0; /* Space out the Bootstrap <hr> more */
 }
-.feature-img-one {
-    background-image: url(https://cdn.pixabay.com/photo/2019/11/03/05/36/portrait-4597853_1280.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.feature-img-two {
-    background-image: url(https://cdn.pixabay.com/photo/2016/11/21/14/53/man-1845814_1280.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.feature-img-three {
-    background-image: url(https://cdn.pixabay.com/photo/2016/11/22/21/42/woman-1850703_1280.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-/* Thin out the marketing headings */
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */
@@ -191,8 +174,3 @@ body {
     }
 }
 
-@media (min-width: 62em) {
-    .featurette-heading {
-        margin-top: 7rem;
-    }
-}
