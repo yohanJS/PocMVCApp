@@ -9,27 +9,19 @@
     ViewData["Title"] = "Home Page";
 }
 
-@if (SignInManager.IsSignedIn(User))
+@if (SignInManager.IsSignedIn(User) && ViewBag.IsTwoFactorEnabled == false)
 {
-    <div class="container mt-5 mb-5">
-        <div class="row">
-            <div class="col-12 bg-secondary bg-opacity-50 shadow-lg p-2 rounded-2">
-                <p class="lead fw-bold">"Now that you've signed up, it's your chance to begin connecting with others."</p>
-                @if (ViewBag.IsTwoFactorEnabled == false)
-                {
-                    <div class="col-md-6">
-                        <div class="alert alert-warning alert-dismissible fade show shadow-lg" role="alert">
-                            <p class="text-dark">Do not wait, and secure your account now.</p>
-                            <a class="text-primary text-decoration-none" href="Identity/Account/Manage/EnableAuthenticator">Enable Two-factor authentication</a>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true"></span>
-                            </button>
-                        </div>
-                     </div>
-                }
+    <div class="row d-flex justify-content-end">
+        <div class="col-md-6">
+            <div class="alert alert-warning alert-dismissible fade show shadow-lg p-2" role="alert">
+                <p class="text-dark">Secure your account now.</p>
+                <a class="text-primary text-decoration-none" href="Identity/Account/Manage/EnableAuthenticator">Enable Two-factor authentication</a>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
             </div>
         </div>
-    </div>   
+    </div>
 }
 else
 {
@@ -44,9 +36,10 @@ else
         </div>
     </div>
 }
-@*This renders a partial view named _UsersCard*@
+@*This renders a partial view named _LandingSection*@
 <div>
-    <partial name="_UsersCard" />
+    <partial name="_LandingSection" />
+    <partial name="_FeatureSection" />
 </div>
 
 
