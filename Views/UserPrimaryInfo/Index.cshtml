@@ -4,10 +4,10 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-@if (!Model.Any())
-{
-    <div class="row mt-4 justify-content-center">
+<div class="container">
+    @if (!Model.Any())
+    {
+        <div class="row mt-4 justify-content-center">
             <div class="col-12 align-self-center p-0">
                 <div class="card mx-auto">
                     <div class="card-body p-5">
@@ -16,42 +16,47 @@
                         <a asp-action="Create" class="btn btn-lg btn-primary w-100">Create</a>
                     </div>
                 </div>
-            </div>       
-    </div>
-}
-else
-{
-    <div class="container mt-5">
-        <div class="row mt-4 justify-content-center">
-            @foreach (var item in Model)
-            {
-                <div class="col-12 align-self-center p-0">
-                    <div class="card mx-auto">
-                        @if (item.ImageData != null && item.ImageType != null)
-                        {
-                            <img class="card-img-top" src="@_imageService.ConvertByteArrayToFile(item.ImageData, item.ImageType)" />
-                        }
-                        else
-                        {
-                            <p>Missing Profile Image</p>
-                        }
-                        <div class="card-body p-5">
-                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.JobTitle)</h5>
-                            <p class="card-text">
-                                <strong class="text-primary">Age:</strong> <span class="text-secondary">@Html.DisplayFor(modelItem => item.Age)</span><br>
-                                <strong class="text-primary">Name:</strong> <span class="text-secondary">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</span><br>
-                                <strong class="text-primary">Address:</strong> <span class="text-secondary">@Html.DisplayFor(modelItem => item.Address)</span><br>
-                                <strong class="text-primary">Zip Code:</strong> <span class="text-secondary">@Html.DisplayFor(modelItem => item.ZipCode)</span>
-                            </p>
+            </div>
+        </div>
+    }
+    else
+    {
+
+        @foreach (var item in Model)
+        {
+            @*Card Section*@
+            <div class="row d-flex justify-content-center">
+                <div class="card mb-3 p-0 rounded-2" style="max-width: 540px;">
+                    <div class="row g-0 p-2">
+                        <div class="col-md-4 mt-4">
+                            @if (item.ImageData != null && item.ImageType != null)
+                            {
+                                <img class="img-fluid rounded-2" src="@_imageService.ConvertByteArrayToFile(item.ImageData, item.ImageType)" />
+                            }
+                            else
+                            {
+                                <p>Missing Profile Image</p>
+                            }
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h5>
+                                <p class="">@Html.DisplayFor(modelItem => item.JobTitle)</p>
+                                <p class="card-text m-0"><small class="text-muted">Age: @Html.DisplayFor(modelItem => item.Age)</small></p>
+                                <p class="card-text m-0"><small class="text-muted">Address: @Html.DisplayFor(modelItem => item.Address) @Html.DisplayFor(modelItem => item.ZipCode)</small></p>
+                                <p class="card-text m-0"><small class="text-muted">Gender: @Html.DisplayFor(modelItem => item.Gender)</small></p>
+                                <p class="card-text m-0"><small class="text-muted">Phone: @Html.DisplayFor(modelItem => item.PrimaryPhone)</small></p>
+                                <p class="card-text m-0"><small class="text-muted">Salary: @Html.DisplayFor(modelItem => item.Salary)</small></p>
+                            </div>
+                        </div>
+                        <div class="card-footer rounded-2 bg-dark text-white text-center">
+                            <a class="btn btn-outline-primary text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a class="btn btn-outline-warning text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 align-self-center p-0">
-                    <a class="btn btn-lg btn-info w-100 mt-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-lg btn-danger w-100 mt-1" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </div>
-            }
-        </div>
-    </div>
-}
+            </div>
+        }
+    }
+</div>
 

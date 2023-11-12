@@ -80,7 +80,7 @@ namespace MvcAppPOC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,ImageData,ImageType,ImageFile,JobTitle,Age,FirstName,LastName,Address,ZipCode")] UserPrimaryInfo userPrimaryInfo)
+        public async Task<IActionResult> Create([Bind("Id,UserId,ImageData,ImageType,ImageFile,JobTitle,Age,FirstName,LastName,Address,ZipCode,Gender,PrimaryPhone,Salary")] UserPrimaryInfo userPrimaryInfo)
         {
             UserPrimaryInfo model = new UserPrimaryInfo();
             if (ModelState.IsValid)
@@ -134,7 +134,7 @@ namespace MvcAppPOC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,ImageData,ImageType,ImageFile,JobTitle,Age,FirstName,LastName,Address,ZipCode")] UserPrimaryInfo userPrimaryInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,ImageData,ImageType,ImageFile,JobTitle,Age,FirstName,LastName,Address,ZipCode,Gender,PrimaryPhone,Salary")] UserPrimaryInfo userPrimaryInfo)
         {
             if (id != userPrimaryInfo.Id)
             {
@@ -170,6 +170,9 @@ namespace MvcAppPOC.Controllers
                                 userPrimaryInfoToUpdate.LastName = userPrimaryInfo.LastName;
                                 userPrimaryInfoToUpdate.Address = userPrimaryInfo.Address;
                                 userPrimaryInfoToUpdate.ZipCode = userPrimaryInfo.ZipCode;
+                                userPrimaryInfoToUpdate.Gender = userPrimaryInfo.Gender;
+                                userPrimaryInfoToUpdate.PrimaryPhone = userPrimaryInfo.PrimaryPhone;
+                                userPrimaryInfoToUpdate.Salary = userPrimaryInfo.Salary;
 
                                 _context.Update(userPrimaryInfoToUpdate);
                                 await _context.SaveChangesAsync();
